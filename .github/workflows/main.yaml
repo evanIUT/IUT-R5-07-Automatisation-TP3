@@ -39,3 +39,27 @@ jobs:
           echo "Contenu de archive.zip :" >> rapport.txt
           unzip -l archive.zip >> rapport.txt
 
+      - name: Définir la date
+        id: date
+        run: echo "DATE=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+
+      - name: Créer archive datée et rapport daté
+        run: |
+          zip archive_${DATE}.zip *.java
+          echo "Rapport du ${DATE}" > rapport_${DATE}.txt
+          unzip -l archive_${DATE}.zip >> rapport_${DATE}.txt
+
+      - name: Commit et push fichiers datés
+        run: |
+          git add archive_${DATE}.zip rapport_${DATE}.txt
+          git commit -m "Archive et rapport ${DATE}"
+          git push
+
+      - name: Comparer avec l’archive précédente
+        run: |
+          echo "Comparaison avec l'archive précédente :" >> rapport_${DATE}.txt
+          ls archive_*.zip | sort | tail -n 2 > last_archives.txt
+          PREV=$(head -n 1 last_archives.txt)
+          unzip -l "$PREV" > prev_list.txt
+          unzip -l "archive_${DATE}.zip" > current_list.txt
+          diff prev_list.txt current_list.txt >> rapport_${DATE}.txt || true
