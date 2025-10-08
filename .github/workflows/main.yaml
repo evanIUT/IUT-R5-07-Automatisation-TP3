@@ -1,0 +1,24 @@
+name: TP Automatisation
+on: [push]
+
+permissions:
+  contents: write  # Autorise le workflow à pousser sur ton repo
+
+jobs:
+  Archive-et-Rapport:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du dépôt
+        uses: actions/checkout@v3
+
+      - name: Créer rapport.txt
+        run: date > rapport.txt
+
+      - name: Commit et push du rapport
+        run: |
+          git config --global user.name "Evan Cnaepelnickx"
+          git config --global user.email "evancnaepelnickx@gmail.com"
+          git add rapport.txt
+          git commit -m "MàJ du rapport automatique"
+          git push
