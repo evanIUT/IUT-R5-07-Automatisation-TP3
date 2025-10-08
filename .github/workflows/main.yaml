@@ -32,3 +32,10 @@ jobs:
           git commit -m "Ajout archive.zip"
           git push
 
+      - name: Vérifier archive.zip et écrire dans rapport.txt
+        run: |
+          echo "Vérification de archive.zip :" >> rapport.txt
+          unzip -t archive.zip >> rapport.txt
+          echo "Contenu de archive.zip :" >> rapport.txt
+          unzip -l archive.zip >> rapport.txt
+
