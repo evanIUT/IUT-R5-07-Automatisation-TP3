@@ -22,3 +22,13 @@ jobs:
           git add rapport.txt
           git commit -m "MàJ du rapport automatique"
           git push
+
+      - name: Archiver les fichiers .java
+        run: zip archive.zip *.java
+
+      - name: Commit et push de l’archive
+        run: |
+          git add archive.zip
+          git commit -m "Ajout archive.zip"
+          git push
+
