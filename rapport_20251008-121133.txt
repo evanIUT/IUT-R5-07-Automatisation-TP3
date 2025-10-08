@@ -1,0 +1,7 @@
+Rapport du 20251008-121133
+Archive:  archive_20251008-121133.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+      122  2025-10-08 12:11   LigneEtoile.java
+---------                     -------
+      122                     1 file
